@@ -22,7 +22,7 @@ public class MemberDAOTest {
 		System.out.println(dao.getTime());
 	}
 	
-	@Test
+	//@Test
 	public void testInsertMember() throws Exception {
 		MemberVO vo = new MemberVO();
 		vo.setUserid("user04");
