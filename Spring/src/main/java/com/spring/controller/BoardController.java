@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.spring.domain.BoardVO;
 import com.spring.service.BoardService;
 
 import javax.inject.Inject;
@@ -24,6 +25,27 @@ public class BoardController {
 	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
 	public void listAll(Model model) throws Exception {
 		logger.info("show listAll ~~~~~~~~~~~~~~~~~");
+		model.addAttribute("list", service.listAll());
+		
 	}
 	
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public void registerGET(BoardVO boardVO, Model model) throws Exception {
+		logger.info("register GET~~~~~~~~");
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String registerPOST(BoardVO boardVO, Model model) throws Exception {
+		logger.info("register POST~~~~~~~~~~");
+		
+		service.create(boardVO); // 등록
+		model.addAttribute("result", "success");
+		
+		return "/board/success"; // success.jsp 페이지 호출
+	}
+		
 }
+
+
+
+
