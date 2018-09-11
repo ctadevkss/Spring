@@ -31,6 +31,28 @@
 				</div>
 <%@include file="../include/footer.jsp"%>
 
+<script>
+	
+	var result = '${result}';     // var result = 'success';
+	
+	if(result == 'success') 
+	{
+		alert("글이 작성 되었습니다.");
+	}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
