@@ -1,5 +1,7 @@
 package com.spring.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -10,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.spring.domain.BoardVO;
+import com.spring.domain.Criteria;
 import com.spring.persistence.BoardDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -21,7 +24,6 @@ public class BoardDAOTest {
 	@Inject
 	private BoardDAO dao;
 		
-	
 	public void testUpdate() throws Exception {
 		BoardVO boardVO = new BoardVO();
 		boardVO.setBno(1);
@@ -30,7 +32,7 @@ public class BoardDAOTest {
 		dao.update(boardVO);
 	}
 	
-	@Test
+	
 	public void testRead() throws Exception {
 		logger.info(dao.read(1).toString());
 	}
@@ -49,9 +51,57 @@ public class BoardDAOTest {
 		dao.delete(3);
 	}
 	
-	@Test
+	
 	public void testlistAll() throws Exception {
 		dao.listAll();
 	}
+	
+	
+	
+	public void testListPage() throws Exception {
+		int page = 0; // 1페이지(0,10) 2페이지(10,10) 3페이지(20,10)
+		
+		List<BoardVO> list = dao.listPage(page);
+		
+		for(BoardVO boardVO : list) {
+			logger.info(boardVO.getBno() + ":" + boardVO.getTitle());
+		}
+	}
+	
+	@Test
+	public void testListCriteria() throws Exception {
+		
+		Criteria criteria = new Criteria();
+		criteria.setPage(2);  
+		criteria.setPerPageNum(20);
+		// 2page limit 20,20 
+		List<BoardVO> list = dao.listCriteria(criteria);
+		
+		for(BoardVO boardVO : list) {
+			logger.info(boardVO.getBno() + ":" + boardVO.getTitle());
+		}
+	}
+	
+	/*
+	ex) 10개씩 데이터를 출력하는 경우 
+    1page  limit 0, 10
+    2page  limit 10,10
+    3page  limit 20,10
+    
+	20개씩 데이터를 출력하는 경우 
+    1page limit 0, 20 
+    2page limit 20,20 
+    2page limit 40,20 
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

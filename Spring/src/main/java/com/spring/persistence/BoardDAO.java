@@ -3,6 +3,7 @@ package com.spring.persistence;
 import java.util.List;
 
 import com.spring.domain.BoardVO;
+import com.spring.domain.Criteria;
 
 public interface BoardDAO {
 	
@@ -14,6 +15,10 @@ public interface BoardDAO {
 	
 	public void delete(Integer bno) throws Exception; // 삭제
 		
-	public List<BoardVO> listAll() throws Exception; // 전체조회(리스트)	
+	public List<BoardVO> listAll() throws Exception; // 전체조회(리스트)
+	
+	public List<BoardVO> listPage(int page) throws Exception; // 페이징 전체조회
+	
+	public List<BoardVO> listCriteria(Criteria criteria) throws Exception; // 페이징처리 클래스
 	
 }

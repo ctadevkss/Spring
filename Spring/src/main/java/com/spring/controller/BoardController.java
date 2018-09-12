@@ -60,8 +60,23 @@ public class BoardController {
 			              RedirectAttributes redirectAtt) throws Exception {
 		
 		service.delete(bno);
-		redirectAtt.addFlashAttribute("msg-remove", "success"); // ${result}
+		redirectAtt.addFlashAttribute("msg-remove", "success"); // ${msg-remove}
 		return "redirect:/board/listAll";
+	}
+	
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String modifyPOST(BoardVO boardVO, 
+			                 RedirectAttributes redirectAtt) throws Exception {
+		
+		logger.info("modifyPOST()~~~~~~~~~~~~");
+		service.update(boardVO);
+		redirectAtt.addFlashAttribute("msg-update", "success"); // ${msg-update}
+		return "redirect:/board/listAll";
+	}
+	
+	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	public void modifyGET(int bno, Model model) throws Exception {
+		model.addAttribute(service.read(bno));
 	}
 }
 
