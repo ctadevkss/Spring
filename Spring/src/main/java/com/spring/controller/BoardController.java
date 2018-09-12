@@ -1,5 +1,9 @@
 package com.spring.controller;
 
+import javax.inject.Inject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,12 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.domain.BoardVO;
+import com.spring.domain.Criteria;
 import com.spring.service.BoardService;
-
-import javax.inject.Inject;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Controller
 @RequestMapping("/board/*")
@@ -78,6 +78,16 @@ public class BoardController {
 	public void modifyGET(int bno, Model model) throws Exception {
 		model.addAttribute(service.read(bno));
 	}
+	
+	@RequestMapping(value = "/listCri", method = RequestMethod.GET)
+	public void listCri(Criteria criteria, Model model) throws Exception {
+		logger.info("listCri()~~~~~~~~~~~~");
+		// select bno, title, content, writer, regdate, viewcnt from tbl_board where bno > 0 order by 
+		// bno desc, regdate desc limit 20, 20
+		// BoradVO	
+		model.addAttribute("list", service.listCriteria(criteria));
+	}
+	
 }
 
 

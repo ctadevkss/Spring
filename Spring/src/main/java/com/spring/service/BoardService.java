@@ -3,10 +3,9 @@ package com.spring.service;
 import java.util.List;
 
 import com.spring.domain.BoardVO;
+import com.spring.domain.Criteria;
 
 public interface BoardService {
-
-	public List<BoardVO> listAll() throws Exception;      // 전체리스트
 	
 	public void create(BoardVO boardVO) throws Exception; // 등록
 	
@@ -15,5 +14,9 @@ public interface BoardService {
 	public void update(BoardVO boardVO) throws Exception; // 수정 
 	
 	public void delete(Integer bno) throws Exception;     // 삭제
+	
+	public List<BoardVO> listAll() throws Exception;      // 전체리스트
+	
+	public List<BoardVO> listCriteria(Criteria criteria) throws Exception; // 페이징 클래스
 		
 }

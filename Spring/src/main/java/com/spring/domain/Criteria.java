@@ -2,7 +2,7 @@ package com.spring.domain;
 
 public class Criteria {
 
-	private int page;
+	private int page;  // pageStart
 	private int perPageNum;
 	
 	public Criteria() {
@@ -35,7 +35,7 @@ public class Criteria {
 		
 		this.perPageNum = perPageNum;
 	}
-	
+	              //pageStart
 	public int getPageStart() {
 		
 		return (this.page - 1) * perPageNum;
@@ -55,16 +55,8 @@ public class Criteria {
     	20개씩 데이터를 출력하는 경우 
     1page limit 0, 20 
     2page limit 20,20 
-    2page limit 40,20 
+    3page limit 40,20 
     
     시작데이터번호 = (페이지번호 - 1) * 페이지당 보여질 갯수
 	*/
-	
-	
-	
-	
-	
-	
-	
-	
 }

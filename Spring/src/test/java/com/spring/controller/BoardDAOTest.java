@@ -72,9 +72,22 @@ public class BoardDAOTest {
 	public void testListCriteria() throws Exception {
 		
 		Criteria criteria = new Criteria();
-		criteria.setPage(2);  
+		criteria.setPage(2);
+		
+		/*
+		 * public int getPageStart() {
+				return (this.page - 1) * perPageNum; //  (2-1) * 20 = 20
+			}
+		 *
+		 *  limit #{pageStart}, #{perPageNum}  // 20, 20
+		 * 
+		 */
+			
 		criteria.setPerPageNum(20);
-		// 2page limit 20,20 
+		// 2page limit 20,20
+		// select bno, title, content, writer, regdate, viewcnt from tbl_board where bno > 0 order by 
+		// bno desc, regdate desc limit 20, 20 
+		
 		List<BoardVO> list = dao.listCriteria(criteria);
 		
 		for(BoardVO boardVO : list) {
@@ -91,7 +104,7 @@ public class BoardDAOTest {
 	20개씩 데이터를 출력하는 경우 
     1page limit 0, 20 
     2page limit 20,20 
-    2page limit 40,20 
+    3page limit 40,20 
 	*/
 	
 	
