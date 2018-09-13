@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.domain.BoardVO;
 import com.spring.domain.Criteria;
+import com.spring.domain.PageMaker;
 import com.spring.service.BoardService;
 
 @Controller
@@ -86,6 +87,19 @@ public class BoardController {
 		// bno desc, regdate desc limit 20, 20
 		// BoradVO	
 		model.addAttribute("list", service.listCriteria(criteria));
+	}
+	
+	@RequestMapping(value = "/listPage", method = RequestMethod.GET)
+	public void listPage(Criteria criteria, Model model) throws Exception {
+		logger.info(criteria.toString());
+		
+		model.addAttribute("list", service.listCriteria(criteria));
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCriteria(criteria);
+		pageMaker.setTotalCount(131); // 전체데이터 갯수
+
+		model.addAttribute("pageMaker", pageMaker);
 	}
 	
 }

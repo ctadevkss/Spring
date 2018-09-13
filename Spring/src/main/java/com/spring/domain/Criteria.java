@@ -2,8 +2,8 @@ package com.spring.domain;
 
 public class Criteria {
 
-	private int page;  // pageStart
-	private int perPageNum;
+	private int page;       // 현재 조회하는 페이지번호
+	private int perPageNum; // 한 페이지당 출력되는 데이터의 개수
 	
 	public Criteria() {
 		this.page = 1;
@@ -43,8 +43,8 @@ public class Criteria {
 
 	@Override
 	public String toString() {
-		return "Criteria [page=" + page + "," 
-		     + "perPgeeNum=" + perPageNum + "]"; 
+		return "Criteria [현재 page=" + page + "," 
+		     + "출력데이터갯수 perPgeeNum=" + perPageNum + "]"; 
 	}
 	/* 
 	ex) 10개씩 데이터를 출력하는 경우 
