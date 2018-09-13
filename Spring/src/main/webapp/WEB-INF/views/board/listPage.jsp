@@ -6,13 +6,6 @@
 <%@include file="../include/header.jsp"%>
 				<div class="box-header with-border">
 					<h3 class="box-title">LIST PAGING</h3>
-					<select>
-						<option>10</option>
-						<option>20</option>
-						<option>30</option>
-						<option>100</option>
-						<option>500</option>
-					</select>
 				</div>
 				<div class="box-body">
 					<table class="table table-bordered">
@@ -27,7 +20,7 @@
 						<c:forEach items="${list}" var="boardVO">
 							<tr>
 								<td>${boardVO.bno}</td>
-								<td><a href='/board/read?bno=${boardVO.bno}'>${boardVO.title}</a></td>
+								<td><a href='/board/read${pageMaker.makeParameter(pageMaker.criteria.page)}&bno=${boardVO.bno}'>${boardVO.title}</a></td>
 								<td>${boardVO.writer}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 								                    value="${boardVO.regdate}" /></td>
@@ -48,7 +41,7 @@
 			           end="${pageMaker.endPage }" var="idx">
 				<li
 					<c:out value="${pageMaker.criteria.page == idx?'class =active':''}"/>>							
-					<a href="listPage?page=${idx}&perPageNum=">${idx}</a>
+					<a href="listPage${pageMaker.makeParameter(idx)}">${idx}</a>	         
 				</li>
 		   </c:forEach>
 		   <c:if test="${pageMaker.next && pageMaker.endPage > 0}">

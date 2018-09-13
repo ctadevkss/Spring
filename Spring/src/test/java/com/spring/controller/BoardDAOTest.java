@@ -26,7 +26,7 @@ public class BoardDAOTest {
 	@Inject
 	private BoardDAO dao;
 	
-	@Test
+	
 	public void testURI() throws Exception {
 		// 스프링에서 제공하는 추상클래스 (웹페이지에서 사용) 
 		UriComponents uriComponents = 
@@ -40,6 +40,20 @@ public class BoardDAOTest {
 		// /board/read?bno=12&perPageNum=20
 	}
 	
+	@Test
+	public void testURI2() throws Exception {
+		// 스프링에서 제공하는 추상클래스 (웹페이지에서 사용) 
+		UriComponents uriComponents = 
+				UriComponentsBuilder.newInstance()
+				.path("/{module}/{page}")
+				.queryParam("bno", 12)
+				.queryParam("perPageNum", 20)
+				.build()
+				.expand("board", "read")
+				.encode();
+		logger.info(uriComponents.toString());
+		// /board/read?bno=12&perPageNum=20
+	}
 	
 	
 	
