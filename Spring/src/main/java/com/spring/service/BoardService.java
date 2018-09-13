@@ -18,5 +18,7 @@ public interface BoardService {
 	public List<BoardVO> listAll() throws Exception;      // 전체리스트
 	
 	public List<BoardVO> listCriteria(Criteria criteria) throws Exception; // 페이징 클래스
+	
+	public int listCountCriteria(Criteria criteria) throws Exception; // 전체데이터 개수 조회
 		
 }

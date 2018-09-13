@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.spring.domain.BoardVO;
 import com.spring.domain.Criteria;
@@ -23,7 +25,25 @@ public class BoardDAOTest {
 	
 	@Inject
 	private BoardDAO dao;
-		
+	
+	@Test
+	public void testURI() throws Exception {
+		// 스프링에서 제공하는 추상클래스 (웹페이지에서 사용) 
+		UriComponents uriComponents = 
+				UriComponentsBuilder.newInstance()
+				.path("/board/read")
+				.queryParam("bno", 12)
+				.queryParam("perPageNum", 20)
+				.build();
+		        
+		logger.info(uriComponents.toString());
+		// /board/read?bno=12&perPageNum=20
+	}
+	
+	
+	
+	
+	
 	public void testUpdate() throws Exception {
 		BoardVO boardVO = new BoardVO();
 		boardVO.setBno(1);
@@ -68,7 +88,7 @@ public class BoardDAOTest {
 		}
 	}
 	
-	@Test
+	
 	public void testListCriteria() throws Exception {
 		
 		Criteria criteria = new Criteria();

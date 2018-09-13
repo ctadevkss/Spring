@@ -97,7 +97,9 @@ public class BoardController {
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCriteria(criteria);
-		pageMaker.setTotalCount(131); // 전체데이터 갯수
+		
+		//pageMaker.setTotalCount(131); // 전체데이터 갯수
+		pageMaker.setTotalCount(service.listCountCriteria(criteria)); // 전체데이터 갯수
 
 		model.addAttribute("pageMaker", pageMaker);
 	}

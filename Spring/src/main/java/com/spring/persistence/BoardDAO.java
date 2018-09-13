@@ -21,4 +21,6 @@ public interface BoardDAO {
 	
 	public List<BoardVO> listCriteria(Criteria criteria) throws Exception; // 페이징처리 클래스
 	
+	public int countPaging(Criteria criteria) throws Exception; // 전체데이터 개수 조회
+	
 }

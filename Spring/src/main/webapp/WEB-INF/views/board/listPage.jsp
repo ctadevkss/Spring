@@ -6,6 +6,13 @@
 <%@include file="../include/header.jsp"%>
 				<div class="box-header with-border">
 					<h3 class="box-title">LIST PAGING</h3>
+					<select>
+						<option>10</option>
+						<option>20</option>
+						<option>30</option>
+						<option>100</option>
+						<option>500</option>
+					</select>
 				</div>
 				<div class="box-body">
 					<table class="table table-bordered">
@@ -41,7 +48,7 @@
 			           end="${pageMaker.endPage }" var="idx">
 				<li
 					<c:out value="${pageMaker.criteria.page == idx?'class =active':''}"/>>							
-					<a href="listPage?page=${idx}">${idx}</a>
+					<a href="listPage?page=${idx}&perPageNum=">${idx}</a>
 				</li>
 		   </c:forEach>
 		   <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
