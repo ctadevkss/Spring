@@ -65,7 +65,7 @@ $(document).ready(function(){
 	console.log(formObj); // (크롬)웹브라우저 개발자도구 콘솔창에서 로그 확인 
 	
 	$("#modifyBtn").on("click", function(){       // 수정버튼을 클릭했을때  
-		formObj.attr("action", "/board/modify");  // controller @RequestMapping(value = "/modify" 
+		formObj.attr("action", "/board/modifyPage");  // controller @RequestMapping(value = "/modify" 
 		formObj.attr("method", "get");		      // , method = RequestMethod.GET)
 		formObj.submit();                         // <input type='hidden' name='bno' value="${boardVO.bno}">
 	});

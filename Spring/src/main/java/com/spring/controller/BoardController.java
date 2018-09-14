@@ -68,21 +68,26 @@ public class BoardController {
 	
 	
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
-	public String remove(@RequestParam("bno") int bno, 
+	public String remove(@RequestParam("bno") int bno,  
+						  Criteria criteria,
 			              RedirectAttributes redirectAtt) throws Exception {
 		
 		service.delete(bno);
-		redirectAtt.addFlashAttribute("msg-remove", "success"); // ${msg-remove}
-		return "redirect:/board/listAll";
+		
+		redirectAtt.addAttribute("page", criteria.getPage());
+		redirectAtt.addAttribute("perPageNum", criteria.getPerPageNum());		
+		redirectAtt.addFlashAttribute("msg", "success"); // ${msg}
+		
+		return "redirect:/board/listPage";
 	}
-	
+
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public String modifyPOST(BoardVO boardVO, 
 			                 RedirectAttributes redirectAtt) throws Exception {
 		
 		logger.info("modifyPOST()~~~~~~~~~~~~");
 		service.update(boardVO);
-		redirectAtt.addFlashAttribute("msg-update", "success"); // ${msg-update}
+		redirectAtt.addFlashAttribute("result", "success"); // ${msg-update}
 		return "redirect:/board/listAll";
 	}
 	
@@ -90,6 +95,27 @@ public class BoardController {
 	public void modifyGET(int bno, Model model) throws Exception {
 		model.addAttribute(service.read(bno));
 	}
+	
+	@RequestMapping(value = "/modifyPage", method = RequestMethod.GET)
+	public void modifyPageGET(@RequestParam("bno") int bno, 
+			                  @ModelAttribute("criteria") Criteria criteria, 
+			                  Model model) throws Exception {
+		
+		model.addAttribute(service.read(bno));
+	}
+	
+	@RequestMapping(value = "/modifyPage", method = RequestMethod.POST)
+	public String modifyPagePOST(BoardVO boardVO, Criteria criteria, 
+			                     RedirectAttributes redirectAtt) throws Exception {
+		service.update(boardVO);
+		
+		redirectAtt.addAttribute("page", criteria.getPage());
+		redirectAtt.addAttribute("perPageNum", criteria.getPerPageNum());
+		redirectAtt.addFlashAttribute("result", "success");
+		
+		return "redirect:/board/listPage";
+	}
+	
 	
 	@RequestMapping(value = "/listCri", method = RequestMethod.GET)
 	public void listCri(Criteria criteria, Model model) throws Exception {
