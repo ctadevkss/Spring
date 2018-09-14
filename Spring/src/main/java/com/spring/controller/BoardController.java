@@ -128,6 +128,8 @@ public class BoardController {
 	
 	@RequestMapping(value = "/listPage", method = RequestMethod.GET)
 	public void listPage(Criteria criteria, Model model) throws Exception {
+		
+		logger.info("criteria.getPerPageNum(): " + criteria.getPerPageNum());
 		logger.info(criteria.toString());
 		
 		model.addAttribute("list", service.listCriteria(criteria));
