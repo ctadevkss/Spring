@@ -3,14 +3,23 @@ package com.spring.domain;
 public class Criteria {
 
 	private int page;       // 현재 조회하는 페이지번호
-	private int perPageNum; // 한 페이지당 출력되는 데이터의 개수
+	private int perPageNum;   // 한 페이지당 출력되는 데이터의 개수
+	//boolean isSearchParameter;
 	
 	public Criteria() {
 		this.page = 1;
 		this.perPageNum = 10;
+		//this.isSearchParameter = false;
 		System.out.println("Criteria() ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 	}
-
+/*	
+	public Criteria(boolean isSearchParameter) {
+		this.page = 1;
+		this.perPageNum = 10;
+		this.isSearchParameter = isSearchParameter;
+		System.out.println("Criteria(boolean isSearchParameter) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+	}
+*/
 	public int getPage() {
 		return page;
 	}
@@ -28,12 +37,12 @@ public class Criteria {
 	}
 
 	public void setPerPageNum(int perPageNum) {
-/*		
+		
 		if(perPageNum <= 0 || perPageNum > 100) {
 			this.perPageNum = 10;
 			return;
 		}
-	*/	
+		
 		this.perPageNum = perPageNum;
 	}
 	              

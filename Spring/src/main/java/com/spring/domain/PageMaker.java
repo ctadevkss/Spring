@@ -18,7 +18,7 @@ public class PageMaker {
 
 	private int displayPageNum = 10; //  1|2|3|4|5|6|7|8|9|10
 	
-	private Criteria criteria; // cri , criteria
+	private Criteria criteria; // criteria
 		
 	public int getStartPage() {
 		return startPage;
@@ -82,15 +82,32 @@ public class PageMaker {
 	}
 	
 	public String makeParameter(int page) {
-		
-		UriComponents uriComponents = 
-				UriComponentsBuilder.newInstance()
+
+		UriComponents uriComponents =	UriComponentsBuilder.newInstance()
 				.queryParam("page", page)
 				.queryParam("perPageNum", criteria.getPerPageNum())
-				.build();
-
-		logger.info(uriComponents.toString());
+		//		.queryParam("searchType", ((SearchCriteria)criteria).getSearchType())
+		//		.queryParam("keyword", ((SearchCriteria)criteria).getKeyword())
+				.build();	
+				
+/*		
 		
+		if(this.criteria.isSearchParameter) {
+		
+			uriComponents =	UriComponentsBuilder.newInstance()
+				.queryParam("page", page)
+				.queryParam("perPageNum", criteria.getPerPageNum())
+				.queryParam("searchType", ((SearchCriteria)criteria).getSearchType())
+				.queryParam("keyword", ((SearchCriteria)criteria).getKeyword())
+				.build();
+		} else {
+			uriComponents =	UriComponentsBuilder.newInstance()
+					.queryParam("page", page)
+					.queryParam("perPageNum", criteria.getPerPageNum())
+					.build();
+		}
+		*/
+		logger.info(uriComponents.toString());
 		return uriComponents.toString();
 	}
 	

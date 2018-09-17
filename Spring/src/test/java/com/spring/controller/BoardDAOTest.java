@@ -15,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.spring.domain.BoardVO;
 import com.spring.domain.Criteria;
+import com.spring.domain.SearchCriteria;
 import com.spring.persistence.BoardDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -25,6 +26,33 @@ public class BoardDAOTest {
 	
 	@Inject
 	private BoardDAO dao;
+	
+	@Test
+	public void testSearcParameter() throws Exception {
+		
+		SearchCriteria criteria = new SearchCriteria();
+		criteria.setPage(1);
+		criteria.setSearchType("w");
+		criteria.setKeyword("test");
+		
+		logger.info("============================================");
+		
+		List<BoardVO> list = dao.listSearch(criteria);
+		
+		for(BoardVO boardVO : list) {
+			logger.info(boardVO.getBno() + ": " + boardVO.getTitle());
+		}
+		
+		logger.info("============================================");
+		
+		logger.info("COUNT: " + dao.listSearchCount(criteria));
+		
+		
+	}
+	
+	
+	
+	
 	
 	
 	public void testURI() throws Exception {
@@ -40,7 +68,7 @@ public class BoardDAOTest {
 		// /board/read?bno=12&perPageNum=20
 	}
 	
-	@Test
+	
 	public void testURI2() throws Exception {
 		// 스프링에서 제공하는 추상클래스 (웹페이지에서 사용) 
 		UriComponents uriComponents = 
