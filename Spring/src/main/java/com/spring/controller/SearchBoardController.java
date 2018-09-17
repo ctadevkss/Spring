@@ -28,13 +28,15 @@ public class SearchBoardController {
 			             Model model) throws Exception {
 		
 		logger.info(criteria.toString());
-		model.addAttribute("list", service.listCriteria(criteria));
+		//model.addAttribute("list", service.listCriteria(criteria));
+		model.addAttribute("list", service.listSearchCriteria(criteria));
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCriteria(criteria);
 		
-		pageMaker.setTotalCount(service.listCountCriteria(criteria)); // 전체데이터 갯수
-
+		//pageMaker.setTotalCount(service.listCountCriteria(criteria)); // 전체데이터 갯수
+		pageMaker.setTotalCount(service.listSearchCount(criteria)); // 검색조건에 갯수
+		
 		model.addAttribute("pageMaker", pageMaker);
 		
 	}	
