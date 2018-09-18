@@ -68,7 +68,7 @@
 						<c:forEach items="${list}" var="boardVO">
 							<tr>
 								<td>${boardVO.bno}</td>
-								<td><a href='/sboard/listPage${pageMaker.makeParameter(pageMaker.criteria.page)}&bno=${boardVO.bno}'>${boardVO.title}</a></td>
+								<td><a href='/sboard/readPage${pageMaker.makeParameter(pageMaker.criteria.page)}&bno=${boardVO.bno}'>${boardVO.title}</a></td>
 								<td>${boardVO.writer}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 								                    value="${boardVO.regdate}" /></td>
@@ -111,8 +111,9 @@
 $(document).ready(function() {
 
 	$('#searchBtn').on("click",function(event) {
-		self.location = "list"
-			+ '${pageMaker.makeParameter(1)}'    
+		self.location = "list?"
+			//+ '${pageMaker.makeParameter(1)}'
+			+ "page=1&perPageNum=${criteria.perPageNum}"
 			+ "&searchType="
 			+ $("select option:selected").val() // t,c,w,tc,cw,tcw
 			+ "&keyword="

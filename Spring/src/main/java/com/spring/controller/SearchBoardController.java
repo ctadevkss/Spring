@@ -26,6 +26,26 @@ public class SearchBoardController {
 	@Inject
 	private BoardService service;
 	
+	// 등록
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public void registerGET() throws Exception {
+		logger.info("register get~~~~~~~~~~~~~~~~");
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String registerPOST(BoardVO boardVO, 
+			                   RedirectAttributes reAttr) throws Exception {
+		
+		logger.info("register post~~~~~~~~~~~~~~~");
+		logger.info(boardVO.toString());
+		
+		service.create(boardVO);
+		reAttr.addFlashAttribute("msg", "success");
+		
+		return "redirect:/sboard/list";
+	}
+	
+	
 	// 게시글 리스트
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public void listPage(@ModelAttribute("criteria") SearchCriteria criteria,
@@ -67,7 +87,7 @@ public class SearchBoardController {
 		reAttr.addAttribute("keyword"   , criteria.getKeyword());
 		reAttr.addFlashAttribute("msg"  , "success");
 				
-		return "redircet:/sboard/list";
+		return "redirect:/sboard/list";
 	}
 	
 	// 수정전
@@ -95,7 +115,8 @@ public class SearchBoardController {
 		
 		logger.info("reAttr.toString(): " + reAttr.toString());
 		
-		return "redircet:/sboard/list";
+		return "redirect:/sboard/list";
+		
 	}
 	
 }
