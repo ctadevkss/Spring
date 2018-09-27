@@ -41,6 +41,8 @@
 <ul id="replies">
 </ul>
 
+<!-- 		$(".modal-title").html(rno);
+		$("#replytext").val(replytext); -->
 
 <div id="modDiv" style="display: none;">
 	<div class="modal-title"></div>
@@ -80,7 +82,7 @@ $(document).ready(function() {
 				
 				str += "<li data-rno='" + this.rno + "' class='replyLi'>"
 				     + this.rno + ":" + this.replytext 
-				     + "<button>수정</button>"
+				     + "<button>MOD</button>"
 				     + "</li>";
 			})
 			
@@ -89,10 +91,64 @@ $(document).ready(function() {
 	}
 	
 	$("#replies").on("click",".replyLi button",	function() {
-				var reply = $(this).parent();
-				var rno = reply.attr("data-rno");
-				var replytext = reply.text();
-				alert(rno + " : " + replytext);
+		var reply = $(this).parent();
+		var rno = reply.attr("data-rno");
+		var replytext = reply.text();
+		//alert(rno + " : " + replytext);
+		
+		$(".modal-title").html(rno);
+		$("#replytext").val(replytext);
+		$("#modDiv").show("slow");
+	});
+	
+	
+	$("#replyDelBtn").on("click", function(){
+		
+		var rno = $(".modal-title").html();
+		var replytext = $("#replytext").val();
+		
+		$.ajax({
+			type : 'delete',
+			url : '/replies/' + rno,
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "DELETE"
+			},
+			dataType : 'text',
+			success : function(result) {
+				if(result=='success') {
+					alert("삭제 되었습니다.");
+					$("#modDiv").hide("slow");
+					getAllList(); // 화면새로고침
+				}
+			}
+		});		
+	});
+	
+	$("#replyModBtn").on("click", function(){
+		var rno = $(".modal-title").html();
+		var replytext = $("#replytext").val();
+		
+		$.ajax({
+			type : 'put',
+			url : '/replies/' + rno,
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "PUT"
+			},
+			data : JSON.stringify({
+				replytext : replytext
+			}),
+			dataType : 'text',
+			success : function(result) {
+				console.log("result: " + result)
+				if(result=='success') {
+					alert("수정 되었습니다.");
+					$("#modDiv").hide("slow");
+					getAllList(); // 화면새로고침
+				}
+			}
+		});			
 	});
 		
 
