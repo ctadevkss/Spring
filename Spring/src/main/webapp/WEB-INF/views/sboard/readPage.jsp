@@ -155,6 +155,8 @@
 		var template = Handlebars.compile(templateObject.html());
 		var html = template(replyArr);
 		$(".replyLi").remove();
+		
+		target.after(html);   // $("#repliesDiv")
 	}
 	
 	var bno = ${boardVO.bno};
@@ -162,6 +164,7 @@
 	
 	function getPage(pageInfo) {
 		$.getJSON(pageInfo, function(data){
+				alert(pageInfo);
 				printData(data.list, $("#repliesDiv"), $("#template"));
 				printPaging(data.pageMaker, $(".pagination"));
 		});
@@ -190,6 +193,7 @@
 		
 		alert("click");
 		if($(".timeline li").size() > 1) {
+			alert("size() > 1");
 			return;
 		}
 		

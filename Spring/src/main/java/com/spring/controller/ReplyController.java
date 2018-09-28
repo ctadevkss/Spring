@@ -108,7 +108,8 @@ public class ReplyController {
 	    // ¥Ò±€∆‰¿Ã¬°
 		@RequestMapping(value = "/{bno}/{page}", method = RequestMethod.GET)
 		public ResponseEntity<Map<String, Object>> 
-		listPage(@PathVariable("bno") Integer bno, @PathVariable("page") Integer page){
+		listPage(@PathVariable("bno") Integer bno, 
+				 @PathVariable("page") Integer page) {
 			
 			ResponseEntity<Map<String, Object>> entity = null;
 			
@@ -129,7 +130,8 @@ public class ReplyController {
 				
 				map.put("pageMaker", pageMaker);
 				
-				entity = new ResponseEntity<Map<String, Object>>(HttpStatus.OK);
+				entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+				
 			}catch(Exception e){
 				e.printStackTrace();
 				entity = new ResponseEntity<Map<String, Object>>(HttpStatus.BAD_REQUEST);
