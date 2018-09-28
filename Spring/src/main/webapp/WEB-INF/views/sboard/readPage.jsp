@@ -5,28 +5,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js">
 </script>
 
-
-<!-- Modal -->
-<div id="modifyModal" class="modal modal-primary fade" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;
-				</button>
-				<h4 class="modal-tilte"></h4>
-			</div>
-			<div class="modal-body" data-rno>
-				<p><input type="text" id="replytext" class="form-control"></p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-info" id="replyModBtn">Modify</button>
-				<button type="button" class="btn btn-danger" id="replyDelBtn">Delete</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
-
 <!-- Main content -->
 <section class="content">
 	<div class="row">
@@ -82,6 +60,29 @@
 
 	</div>
 	<!-- /.row -->
+	
+<!-- Modal -->
+<div id="modifyModal" class="modal modal-primary fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;
+				</button>
+				<h4 class="modal-tilte"></h4>
+			</div>
+			<div class="modal-body" data-rno>
+				<p><input type="text" id="replytext" class="form-control"></p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-info" id="replyModBtn">Modify</button>
+				<button type="button" class="btn btn-danger" id="replyDelBtn">Delete</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>	
+	
+	
 </section>
 <!-- /.content -->
 
@@ -156,11 +157,6 @@
 		$(".replyLi").remove();
 	}
 	
-</script>
-
-
-<script>
-	
 	var bno = ${boardVO.bno};
 	var replyPage = 1;
 	
@@ -190,36 +186,9 @@
 		target.html(str); // $(".pagination").html(str);
 	}
 
-</script>
-
-
-
-<script>		
-$(document).ready(function(){
-	var formObj = $("form[role='form']");
-	console.log(formObj); // (크롬)웹브라우저 개발자도구 콘솔창에서 로그 확인 
-	
-	$("#modifyBtn").on("click", function(){       // 수정버튼을 클릭했을때  
-		formObj.attr("action", "/sboard/modifyPage");  // controller @RequestMapping(value = "/modify" 
-		formObj.attr("method", "get");		      // , method = RequestMethod.GET)
-		formObj.submit();                         // <input type='hidden' name='bno' value="${boardVO.bno}">
-	});
-	
-	$("#removeBtn").on("click", function(){     
-		formObj.attr("action", "/sboard/removePage");
-		formObj.submit();
-	});
-	
-	$("#goListBtn").on("click", function(){
-		
-		formObj.attr("method", "get");
-		formObj.attr("action", "/sboard/list");
-		formObj.submit();  
-	});
-	
-	
 	$("#repliesDiv").on("click", function(){
 		
+		alert("click");
 		if($(".timeline li").size() > 1) {
 			return;
 		}
@@ -234,7 +203,6 @@ $(document).ready(function(){
 		replyPage = $(this).attr("href");
 		getPage("/replies/"+bno+"/"+replyPage);
 	});
-	
 	
 	$("#replyAddBtn").on("click", function(){
 		var replyerObj = $("#newReplyWriter");
@@ -327,8 +295,35 @@ $(document).ready(function(){
 	});	
 	
 	
+</script>
+
+
+
+<script>		
+$(document).ready(function(){
+	var formObj = $("form[role='form']");
+	console.log(formObj); // (크롬)웹브라우저 개발자도구 콘솔창에서 로그 확인 
+	
+	$("#modifyBtn").on("click", function(){       // 수정버튼을 클릭했을때  
+		formObj.attr("action", "/sboard/modifyPage");  // controller @RequestMapping(value = "/modify" 
+		formObj.attr("method", "get");		      // , method = RequestMethod.GET)
+		formObj.submit();                         // <input type='hidden' name='bno' value="${boardVO.bno}">
+	});
+	
+	$("#removeBtn").on("click", function(){     
+		formObj.attr("action", "/sboard/removePage");
+		formObj.submit();
+	});
+	
+	$("#goListBtn").on("click", function(){
+		
+		formObj.attr("method", "get");
+		formObj.attr("action", "/sboard/list");
+		formObj.submit();  
+	});
 	
 	
+
 	
 });
 
