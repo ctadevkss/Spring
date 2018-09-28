@@ -2,6 +2,30 @@
 	pageEncoding="UTF-8"%>
 
 <%@include file="../include/header.jsp"%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js">
+</script>
+
+
+<!-- Modal -->
+<div id="modifyModal" class="modal modal-primary fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;
+				</button>
+				<h4 class="modal-tilte"></h4>
+			</div>
+			<div class="modal-body" data-rno>
+				<p><input type="text" id="replytext" class="form-control"></p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-info" id="replyModBtn">Modify</button>
+				<button type="button" class="btn btn-danger" id="replyDelBtn">Delete</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 <!-- Main content -->
 <section class="content">
@@ -76,7 +100,7 @@
 				placeholder="REPLY TEXT" id="newReplyText">
 			</div>
 			<div class="box-footer">
-				<button type="submit" class="btn btn-primary" id="replyBtn">
+				<button type="submit" class="btn btn-primary" id="replyAddBtn">
 				ADD REPLY</button>
 			</div>
 		</div>
@@ -210,6 +234,101 @@ $(document).ready(function(){
 		replyPage = $(this).attr("href");
 		getPage("/replies/"+bno+"/"+replyPage);
 	});
+	
+	
+	$("#replyAddBtn").on("click", function(){
+		var replyerObj = $("#newReplyWriter");
+		var replytextObj = $("#newReplyText");
+		var replyer = replyerObj.val();
+		var replytext = replytextObj.val();
+
+		$.ajax({
+			type : 'post',
+			url : '/replies/',
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "POST"
+			},
+			dataType : 'text',
+			data : JSON.stringify({
+				bno : bno,
+				replyer : replyer,
+				replytext : replytext
+			}),
+			success : function(result) {
+				console.log("result: " + result);
+				if(result=='success') {
+					alert("등록 되었습니다.");
+					replyPage = 1; // 현재페이지 번호을 1페이지로
+					getPage("/replies/"+bno+"/"+replyPage);
+					replyerObj.val("");
+					replytextObj.val("");
+				}
+			}
+		});		
+		
+	});
+	
+	
+	$(".timeline").on("click", ".replyLi", function(event){
+		var reply = $(this);
+		
+		$("#replytext").val(reply.find('.timeline-body').text());
+		$(".modal-title").html(reply.attr("data-rno"));
+	});
+	
+	
+	$("#replyDelBtn").on("click", function(){
+		
+		var rno = $(".modal-title").html();
+		var replytext = $("#replytext").val();
+		
+		$.ajax({
+			type : 'delete',
+			url : '/replies/' + rno,
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "DELETE"
+			},
+			dataType : 'text',
+			success : function(result) {
+				console.log("reslult: " + result);
+				if(result=='success') {
+					alert("삭제 되었습니다.");
+					getPage("/replies/"+bno+"/"+replyPage);					
+				}
+			}
+		});		
+	});
+	
+	$("#replyModBtn").on("click", function(){
+		var rno = $(".modal-title").html();
+		var replytext = $("#replytext").val();
+		
+		$.ajax({
+			type : 'put',
+			url : '/replies/' + rno,
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "PUT"
+			},
+			data : JSON.stringify({
+				replytext : replytext
+			}),
+			dataType : 'text',
+			success : function(result) {
+				console.log("result: " + result)
+				if(result=='success') {
+					alert("수정 되었습니다.");
+					getPage("/replies/"+bno+"/"+replyPage);
+				}
+			}
+		});			
+	});	
+	
+	
+	
+	
 	
 });
 
