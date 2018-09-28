@@ -61,6 +61,43 @@
 </section>
 <!-- /.content -->
 
+<div class="row">
+	<div class="col-md-12">
+		<div class="box box-success">
+			<div class="box-header">
+				<h3 class="box-title">ADD NEW REPLY</h3>
+			</div>
+			<div class="box-body">
+				<label for="exampleInputEmail">Writer</label>
+				<input class="form-control" 
+				type="text" placeholder="USER ID" id="newReplyWriter">
+				<label for="exampleInputEmail">Reply Text</label>
+				<input class="form-control" type="text"
+				placeholder="REPLY TEXT" id="newReplyText">
+			</div>
+			<div class="box-footer">
+				<button type="submit" class="btn btn-primary" id="replyBtn">
+				ADD REPLY</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- The time line -->
+<ul class="timeline">
+	<li class="time-label" id="repliesDiv">
+		<span class="bg-green">Replies List</span>
+	</li>
+</ul>
+
+<div class="text-center">
+	<ul id="pagination" class="pagination pagination-sm no-margin">
+	
+	</ul>
+</div>
+
+
+
 <script>		
 $(document).ready(function(){
 	var formObj = $("form[role='form']");
