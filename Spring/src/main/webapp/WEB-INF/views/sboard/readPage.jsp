@@ -97,6 +97,78 @@
 </div>
 
 
+<script id="template" type="text/x-handlebars-template">
+	{{#each .}}
+	<li class="replyLi" data-rno={{rno}}>
+	<i class="fa fa-comments bg-blue"></i>
+	 <div class="timeline-item">
+       <span class="time">
+		  <i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
+	   </span>
+       <h3 class="timeline-header"><strong>{{rno}}</strong> -{{replyer}}</h3>
+       <div class="timeline-body">{{replytext}}</div>
+		<div class="timeline-footer">
+			<a class="btn btn-primary btn-xs" data-toggle="modal" 
+                      data-target="#modifyModal">Modify</a>
+        </div>
+       </div>
+     </li>
+	{{/each}}
+</script>
+
+<script>
+	
+	Handlebars.registerHelper("prettifyDate", function(timeValue){
+		var dateObj = new Date(timeValue);
+		var year = dateObj.getFullYear();
+		var month = dateObj.getMonth() + 1;
+		var date = dateObj.getDate();
+		return year+"/"+month+"/"+date;
+	});
+	
+	var printData = function(replyArr, target, templateObject) {
+		var template = Handlebars.compile(templateObject.html());
+		var html = template(replyArr);
+		$(".replyLi").remove();
+	}
+	
+</script>
+
+
+<script>
+	
+	var bno = ${boardVO.bno};
+	var replyPage = 1;
+	
+	function getPage(pageInfo) {
+		$.getJSON(pageInfo, function(data){
+				printData(data.list, $("#repliesDiv"), $("#template"));
+				printPaging(data.pageMaker, $(".pagination"));
+		});
+	}
+	
+	var printPaging = function(pageMaker, target) {
+		var str = "";
+		
+		if(pageMaker.prev){
+			str += "<li><a href='"+(pageMaker.startPage - 1)+"'> << </a></li>";
+		}
+		
+		for(var i=pageMaker.startPage, len=pageMaker.endPage; i<=len; i++){
+			var strClass = pageMaker.criteria.page == i?'class=active':'';
+			str += "<li " + strClass + "><a href='" + i +"'>" + i + "</a></li>"; 
+		}
+		
+		if(pageMaker.next){
+			str += "<li><a href='"+(pageMaker.endPage + 1)+"'> >> </a></li>";
+		}
+		
+		target.html(str); // $(".pagination").html(str);
+	}
+
+</script>
+
+
 
 <script>		
 $(document).ready(function(){
@@ -120,6 +192,25 @@ $(document).ready(function(){
 		formObj.attr("action", "/sboard/list");
 		formObj.submit();  
 	});
+	
+	
+	$("#repliesDiv").on("click", function(){
+		
+		if($(".timeline li").size() > 1) {
+			return;
+		}
+		
+		getPage("/replies/" + bno + "/1");
+	});
+	
+	$("#pagination").on("click", "li a", function(event){
+		
+		event.preventDefault(); // 기존이벤트를 취소 
+		
+		replyPage = $(this).attr("href");
+		getPage("/replies/"+bno+"/"+replyPage);
+	});
+	
 });
 
 </script>
