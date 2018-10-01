@@ -3,7 +3,7 @@
 
 <% 
 	response.setCharacterEncoding("UTF-8");
- %>
+%>
 <html>
 <head>
 	<title>Home</title>

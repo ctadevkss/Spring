@@ -41,11 +41,4 @@ public class HomeController {
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
 }

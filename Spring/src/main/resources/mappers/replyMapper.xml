@@ -18,8 +18,7 @@
   
   <update id="update">
   	update tbl_reply set
-  		replytext = #{replytext},
-  		updatedate = now()
+  		replytext = #{replytext}
   	where rno = #{rno}
   </update>
   
@@ -35,7 +34,7 @@
   	where
   	 bno = #{bno}
   	order by rno desc
-  	limit #{criteria.page}, #{criteria.perPageNum}
+  	limit #{criteria.pageStart}, #{criteria.perPageNum}
   </select>
   
   <select id="count" resultType="int">
